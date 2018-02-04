@@ -1,0 +1,20 @@
+{
+  "rules": {
+    ".read": "auth !== null",
+
+    "all_public_profile": {
+      "$public_profileID": {
+        ".write": "auth.uid === $public_profileID"
+      }
+    },
+
+    "Chatrooms": {
+      "$ChatroomId": {
+        ".read": "root.child('UserMatches').child(authId).child('ListOfChatrooms').child($ChatroomID).exists()"
+        ".write": "root.child('UserMatches').child(authId).child('ListOfChatrooms').child($ChatroomID).exists()"
+      }
+    },
+
+  }
+
+}

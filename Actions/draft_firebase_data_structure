@@ -1,0 +1,108 @@
+User's firebase database object
+{
+  AdminStuffs: {                        (Public read, auth write)
+  }
+  PublicProfiles: {
+    AccountId_1: {
+      accountId: AccountId_1,
+      name: string,
+      profilePic: 'base64'.jpeg,
+      age: int,
+      gender: binary,
+      profileDescription: string,
+      lookingFor: binary,
+      dateJoined: DateObject
+    },
+    ...
+    ...
+  }
+
+  ChatRooms: {
+    ChatroomId_1: [
+      MessageId_1: {
+        key(MessageId): MessageId_1,
+        text: string,
+        createdAt: DateObject,
+        sender: AccountId1 or AccountId2         (duplicate data! Consider binary?)
+      }
+      ...
+      ...
+    ]
+    ...
+    ...
+  }
+  UserMatches: {                     (only auth read, auth write)
+    AccountId1: {
+      ListOfMatches: { MatchId1, ... },
+      ListOfChatRooms: { ChatroomId1, ... }
+    }
+    ...
+    ...
+  }
+
+}
+
+/UserID
+  /ProfileID
+  /Chats
+    /
+  /Messages
+    /MatchId1
+    /MatchId2
+    /...
+
+**************************************************************************************************************
+
+AsyncStorage: {
+  FBLogInToken: string,
+  Matches: {
+    Match1: _id1
+    ...
+    ...
+  }
+
+}
+
+
+**************************************************************************************************************
+
+Redux state
+{
+  auth: {
+    token,
+    roomKey
+  },
+  profile: {
+    AccountID: int,                   (also use for Message.senderID)
+    name: string,
+    avatarURL: URL,
+  },
+  messages: [                 (same as gifted-chat messages list + message object)
+    {
+      _id: int,               (message ID)
+      text: string,
+      createdAt: dateObject,
+      user: {
+        _id: int,
+        name: string,
+        avatar: URL,
+
+      },
+      image: null
+    },
+    ...
+    ...
+  ],
+  matches: [
+    match1:
+      {
+        _id: AccountId2,
+        name: string,
+        lastMessage: string,
+        url: 'base64'.jpg
+        roomKey: roomKey
+      },
+    ...
+    ...
+  ]
+}
